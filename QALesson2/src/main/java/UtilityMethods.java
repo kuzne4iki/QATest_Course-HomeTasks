@@ -1,6 +1,9 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -9,24 +12,40 @@ import java.util.List;
  */
 public class UtilityMethods {
 
+    private static WebDriver driver;
+    private static WebElement elementToHover;
+    private static WebElement elementToClick;
+
+    public static void sleep(int milliseconds){
+        try {
+            Thread.sleep(milliseconds);
+        }
+        catch (InterruptedException e){
+            System.out.println(e.getStackTrace());
+        }
+    }
+
     public void login(WebDriver driver, String email_field, String email_value,
-                      String password_field, String password_value, String login_identifier) throws InterruptedException{
+                      String password_field, String password_value, String login_identifier) {
         driver.get("http://prestashop-automation.qatestlab.com.ua/admin147ajyvk0/");
-        Thread.sleep(3000);
+        UtilityMethods.sleep(3000);
         driver.manage().window().maximize();
         driver.findElement(By.id(email_field)).sendKeys(email_value);
         driver.findElement(By.id(password_field)).sendKeys(password_value);
         driver.findElement(By.xpath(login_identifier)).click();
-        Thread.sleep(3000);
+        UtilityMethods.sleep(3000);
     }
 
     public void logout(WebDriver driver, String logout_main_identifier, String logout_sub_identifier){
-        driver.findElement(By.xpath(logout_main_identifier)).click();
-        driver.findElement(By.xpath(logout_sub_identifier)).click();
+        WebDriverWait wait = new WebDriverWait(driver, 40);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(logout_main_identifier))).click();
+        //driver.findElement(By.xpath(logout_main_identifier)).click();
+        //driver.findElement(By.xpath(logout_sub_identifier)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(logout_sub_identifier))).click();
     }
 
 
-    public void subMenus(WebDriver driver) throws InterruptedException {
+    public void subMenus(WebDriver driver) {
         List<WebElement> submenus_found = driver.findElements(By.xpath("//*[contains(@class,\"title has_submenu\")]"));
         int listik_size= submenus_found.size();
 /*
@@ -44,23 +63,24 @@ public class UtilityMethods {
 
         for (int i=0; i<listik_size; i++){
 
-            //WebDriverWait wait = new WebDriverWait(driver, 5);
-            //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@class,\"title has_submenu\")]")));
             submenus_found = driver.findElements(By.xpath("//*[contains(@class,\"title has_submenu\")]"));
             WebElement submenu_page = submenus_found.get(i);
 
             // 2 - Кликнуть на каждом видимом пункте главного меню (Dashboard, Заказы, Каталог, Клиенты...) для открытия соответствующего раздела
             submenu_page.click();
-            Thread.sleep(1000);
-            String title_initial = driver.getTitle();
+            UtilityMethods.sleep(1000);
+
+            WebDriverWait wait = new WebDriverWait(driver, 40);
+            String title_initial = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2[contains(@class,'page-title')]"))).getText();
 
             // 2a - Вывести в консоль заголовок открытого раздела.
             System.out.println(title_initial);
 
             //2b - Выполнить обновление рефреш страницы  и  проверить, что остается в  том  же  разделе после  перезагрузки страницы.
             driver.navigate().refresh();
-            String title_refreshed = driver.getTitle();
 
+
+            String title_refreshed = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2[contains(@class,'page-title')]"))).getText();
 
             if( !title_initial.equals(title_refreshed) ) {
                 System.out.println("Title after refreshing is not the same! \n" +
@@ -68,17 +88,25 @@ public class UtilityMethods {
             };
 
             driver.navigate().back();
-            Thread.sleep(2000);
+            UtilityMethods.sleep(2000);
 
 
         }
 
     }
 
+    public static void hoverAndClick(WebDriver driver,WebElement elementToHover,WebElement elementToClick) throws InterruptedException {
+        Actions action = new Actions(driver);
+        action.moveToElement(elementToHover);
 
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(.,'категории')]")));
 
-
-
+        action.moveToElement(elementToHover);//elementToClick);
+        action.click(elementToClick).build().perform();
+    }
 
 
 }
+
+
