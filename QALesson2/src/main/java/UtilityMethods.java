@@ -95,6 +95,17 @@ public class UtilityMethods {
 
     }
 
+   public void printScriptNumber(String ScriptDescription){
+       System.out.println("********************************") ;
+       System.out.println("Execution of script defined as \' " + ScriptDescription + " \' has started") ;
+   }
+
+    public void quit(WebDriver driver){
+        driver.quit();
+        System.out.println("Browser was quitted successfully") ;
+        System.out.println("********************************") ;
+    }
+
     public static void hoverAndClick(WebDriver driver, WebElement elementToHover,WebElement elementToClick) throws InterruptedException {
         try {
             Actions action = new Actions(driver);

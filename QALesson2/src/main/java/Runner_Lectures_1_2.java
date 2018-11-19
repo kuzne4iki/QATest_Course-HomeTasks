@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by kuzne4iki on 11/4/18.
  */
-public class Runner_Script1_Script2 {
+public class Runner_Lectures_1_2 {
 
     public static void main(String ... args) throws InterruptedException {
 

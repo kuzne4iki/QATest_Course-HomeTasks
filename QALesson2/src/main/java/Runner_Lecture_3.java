@@ -4,7 +4,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 /**
  * Created by kuzne4iki on 11/4/18.
  */
-public class Runner_Script3 {
+public class Runner_Lecture_3 {
     // Script 3 (Lesson 3)
     // Plug-in class-listener (EventCapture)
 
@@ -18,7 +18,8 @@ public class Runner_Script3 {
         eventHandler.register(eCapture);
 
 
-        System.out.println("Third script");
+        //System.out.println("Third script");
+        RunnerInstance.printScriptNumber("Third script");
 
         // 1. Войти в Админ Панель
         RunnerInstance.login(eventHandler, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
@@ -38,7 +39,9 @@ public class Runner_Script3 {
         catalogue.sortAndVerifyPresence(nameEntered);
 
         RunnerInstance.logout(eventHandler , "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
-        driver.quit();
+
+        RunnerInstance.quit(driver);
+        //driver.quit();
 
     }
 
