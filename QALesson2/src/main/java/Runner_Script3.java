@@ -1,49 +1,23 @@
-import com.sun.tools.javac.comp.Todo;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import sun.jvm.hotspot.utilities.Assert;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by kuzne4iki on 11/4/18.
  */
-public class Runner {
+public class Runner_Script3 {
+    // Script 3 (Lesson 3)
+    // Plug-in class-listener (EventCapture)
 
     public static void main(String ... args) throws InterruptedException {
 
         WebDriver driver = DriverManager.chooseDriver("firefox");
         UtilityMethods RunnerInstance = new UtilityMethods();
 
-        //Lesson 3
-        // Plug-in class-listener (EventCapture)
         EventFiringWebDriver eventHandler = new EventFiringWebDriver(driver);
         EventCapture eCapture = new EventCapture();
         eventHandler.register(eCapture);
 
-     /*   // Script 1 (Lesson 2)
-        System.out.println("First script");
-        RunnerInstance.login(driver, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
-        RunnerInstance.logout(driver, "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
 
-
-        // Script 2 (Lesson 2)
-        System.out.println("*************");
-        System.out.println("Second script");
-        RunnerInstance.login(driver, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
-        RunnerInstance.subMenus(driver);
-        RunnerInstance.logout(driver, "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
-
-        //driver.quit();
-
-*/
-
-        // Script 3 (Lesson 3)
         System.out.println("Third script");
 
         // 1. Войти в Админ Панель
@@ -62,8 +36,9 @@ public class Runner {
 
         // 5. Отфильтровать таблицу категорий по имени и дождаться там появления записи созданной категории.
         catalogue.sortAndVerifyPresence(nameEntered);
-        //RunnerInstance.logout(eventHandler , "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
 
+        RunnerInstance.logout(eventHandler , "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
+        driver.quit();
 
     }
 
