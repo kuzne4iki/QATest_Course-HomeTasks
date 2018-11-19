@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class UtilityMethods {
 
-    private static WebDriver driver;
+    private static EventFiringWebDriver driver;
     private static WebElement elementToHover;
     private static WebElement elementToClick;
 
@@ -90,22 +91,26 @@ public class UtilityMethods {
             driver.navigate().back();
             UtilityMethods.sleep(2000);
 
-
         }
 
     }
 
-    public static void hoverAndClick(WebDriver driver,WebElement elementToHover,WebElement elementToClick) throws InterruptedException {
-        Actions action = new Actions(driver);
-        action.moveToElement(elementToHover);
+    public static void hoverAndClick(WebDriver driver, WebElement elementToHover,WebElement elementToClick) throws InterruptedException {
+        try {
+            Actions action = new Actions(driver);
+            action.moveToElement(elementToHover);
 
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(.,'категории')]")));
+            WebDriverWait wait = new WebDriverWait(driver, 15);
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(.,'категории')]")));
 
-        action.moveToElement(elementToHover);//elementToClick);
-        action.click(elementToClick).build().perform();
+            action.moveToElement(elementToHover);//elementToClick);
+            action.click(elementToClick).build().perform();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
-
 
 }
 
