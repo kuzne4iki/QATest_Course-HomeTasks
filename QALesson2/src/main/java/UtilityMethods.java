@@ -1,12 +1,12 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by kuzne4iki on 11/9/18.
@@ -106,20 +106,68 @@ public class UtilityMethods {
         System.out.println("********************************") ;
     }
 
-    public static void hoverAndClick(WebDriver driver, WebElement elementToHover,WebElement elementToClick) throws InterruptedException {
+    public void checkAlerts(WebDriver driver) {
         try {
+            //Alert alert = driver.switchTo().alert();
+            WebDriverWait wait = new WebDriverWait(driver, 40);
+            Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+            String alertText = alert.getText();
+            System.out.println("Alert data: " + alertText);
+            alert.accept();
+        } catch (NoAlertPresentException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public String generateRandomString(int desiredLength){
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        Random random = new Random();
+        int targetStringLength = random.nextInt(desiredLength);
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+                    (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        String generatedString = buffer.toString();
+
+        System.out.println(generatedString);
+        return generatedString;
+    }
+
+    public int generateRandomInt(int min, int max){
+        if (min >= max) {
+            int temp = min;
+            min=max;
+            max=temp;
+        }
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
+    public double generateRandomDouble(double min, double max){
+        if (min >= max) {
+            double temp = min;
+            min=max;
+            max=temp;
+        }
+        Random r = new Random();
+        double randomValue = min + (max- min) * r.nextDouble();
+        double twoDecimalValue =Double.parseDouble(new DecimalFormat("#.##").format(randomValue));
+        return twoDecimalValue;
+    }
+
+
+    public static void hoverAndClick(WebDriver driver, WebElement elementToHover,WebElement elementToClick, String elementToClickXPath)  {
             Actions action = new Actions(driver);
             action.moveToElement(elementToHover);
 
             WebDriverWait wait = new WebDriverWait(driver, 15);
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(.,'категории')]")));
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementToClickXPath)));
 
-            action.moveToElement(elementToHover);//elementToClick);
+            action.moveToElement(elementToHover);
             action.click(elementToClick).build().perform();
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
 
     }
 

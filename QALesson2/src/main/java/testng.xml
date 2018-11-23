@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="3" >
+    <test name="Home Task - Script with testing framework TestNG" >
+        <parameter name = "browser_name" value = "firefox"/>
+        <classes>
+            <class name="Runner_Lecture_4_TestNG" />
+
+        </classes>
+    </test>
+
+</suite>

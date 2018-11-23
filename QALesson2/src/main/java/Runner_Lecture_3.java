@@ -25,7 +25,7 @@ public class Runner_Lecture_3 {
         RunnerInstance.login(eventHandler, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
 
         // 2. Выбрать пункт меню Каталог -> категории и дождаться загрузки страницы управления категориями.
-        Catalogue_Page catalogue = new Catalogue_Page(eventHandler);
+        CataloguePage catalogue = new CataloguePage(eventHandler);
         catalogue.choose_submenu("//span[contains(.,'Каталог')]","//a[contains(.,'категории')]");
 
         //3. Нажать «Добавить категорию» для перехода к созданию новой категории.
@@ -33,7 +33,7 @@ public class Runner_Lecture_3 {
         //странице управления категориями должно появиться сообщение об успешном создании категории.
 
         String nameEntered = "NEW TESTIK NAME";
-        catalogue.addCategorie("(//div[contains(.,'Добавить категорию')])[7]", nameEntered);
+        catalogue.addNewElement("(//div[contains(.,'Добавить категорию')])[7]", "//input[@id='name_1']", nameEntered, "//button[contains(.,'Сохранить')]");
 
         // 5. Отфильтровать таблицу категорий по имени и дождаться там появления записи созданной категории.
         catalogue.sortAndVerifyPresence(nameEntered);
@@ -41,7 +41,6 @@ public class Runner_Lecture_3 {
         RunnerInstance.logout(eventHandler , "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
 
         RunnerInstance.quit(driver);
-        //driver.quit();
 
     }
 

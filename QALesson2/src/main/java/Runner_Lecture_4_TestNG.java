@@ -10,7 +10,7 @@ import org.testng.annotations.*;
 
 public class Runner_Lecture_4_TestNG {
     WebDriver driver;
-    UtilityMethods RunnerInstance;
+    UtilityMethods utilities;
     EventFiringWebDriver eventHandler;
     EventCapture eCapture;
 
@@ -18,29 +18,46 @@ public class Runner_Lecture_4_TestNG {
     @Parameters({ "browser_name", "value" })
     public void testPreparation(){
         driver = DriverManager.chooseDriver("browser_value");
-        RunnerInstance = new UtilityMethods();
+        utilities = new UtilityMethods();
 
-        eventHandler = new EventFiringWebDriver(driver);
-        eCapture = new EventCapture();
-        eventHandler.register(eCapture);
-        RunnerInstance.printScriptNumber("Forth script");
+        //eventHandler = new EventFiringWebDriver(driver);
+        //eCapture = new EventCapture();
+       // eventHandler.register(eCapture);
+        utilities.printScriptNumber("Forth script");
 
     }
 
     @Test
-        public void logintoPage(){
+        public void createProduct(){
         // 1. Войти в Админ Панель
-        RunnerInstance.login(eventHandler, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
+        utilities.login(driver, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
 
         // 2. Выбрать пункт меню Каталог -> категории и дождаться загрузки страницы управления категориями.
-        Catalogue_Page catalogue = new Catalogue_Page(eventHandler);
+        CataloguePage catalogue = new CataloguePage(driver);
+        catalogue.choose_submenu("//span[contains(.,'Каталог')]","(//a[contains(.,'товары')])[1]");
+        CatalogueMerchandise items = new CatalogueMerchandise(driver);
+        //String nameEntered = "NEW ITEM NAME";
+        String nameEntered = utilities.generateRandomString(20);
+        items.addNewElement("//span[contains(.,'Новый товар')]",
+                "//input[@id='form_step1_name_1']",
+                "//input[@id='form_step1_qty_0_shortcut']",
+                "//input[contains(@name,'form[step1][price_shortcut]')]",
+                nameEntered,
+                "//div[contains(@class,'switch-input')]",
+                "//button[@class='btn btn-primary js-btn-save'][contains(.,'Сохранить')]");
+
     }
 
 
+    @Test(dependsOnMethods = "createProduct")
+    public void checkAlert(){
+        utilities.checkAlerts(driver);
 
-    @AfterTest
-        public void afterTest(){
-        RunnerInstance.quit(driver);
+    }
+
+    @AfterClass
+        public void tearDown(){
+        utilities.quit(driver);
     }
 
 
