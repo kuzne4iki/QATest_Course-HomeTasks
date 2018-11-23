@@ -20,7 +20,7 @@ public class DriverManager {
                 //There are 3 states for UnexpectedAlertBehaviour:
                 //ACCEPT - Accepts the alert
                 //DISMISS - Closes/Cancels the alert
-                //IGNORE - Neither accepts nor closes the alert
+                //IGNORE - Neither accepts nor closes the alert //
 
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
