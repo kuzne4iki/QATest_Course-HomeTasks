@@ -11,7 +11,7 @@ public class Runner_Lecture_3 {
     public static void main(String ... args) throws InterruptedException {
 
         WebDriver driver = DriverManager.chooseDriver("firefox");
-        UtilityMethods RunnerInstance = new UtilityMethods();
+        UtilityMethods utilityMethods = new UtilityMethods();
 
         EventFiringWebDriver eventHandler = new EventFiringWebDriver(driver);
         EventCapture eCapture = new EventCapture();
@@ -19,10 +19,10 @@ public class Runner_Lecture_3 {
 
 
         //System.out.println("Third script");
-        RunnerInstance.printScriptNumber("Third script");
+        utilityMethods.printScriptNumber("Third script");
 
         // 1. Войти в Админ Панель
-        RunnerInstance.login(eventHandler, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
+        utilityMethods.login(eventHandler, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
 
         // 2. Выбрать пункт меню Каталог -> категории и дождаться загрузки страницы управления категориями.
         CataloguePage catalogue = new CataloguePage(eventHandler);
@@ -32,15 +32,16 @@ public class Runner_Lecture_3 {
         // 4. После загрузки страницы ввести название новой категории и сохранить изменения. На
         //странице управления категориями должно появиться сообщение об успешном создании категории.
 
-        String nameEntered = "NEW TESTIK NAME";
+        //String nameEntered = "NEW TESTIK NAME";
+        String nameEntered = utilityMethods.generateRandomString(20);
         catalogue.addNewElement("(//div[contains(.,'Добавить категорию')])[7]", "//input[@id='name_1']", nameEntered, "//button[contains(.,'Сохранить')]");
 
         // 5. Отфильтровать таблицу категорий по имени и дождаться там появления записи созданной категории.
         catalogue.sortAndVerifyPresence(nameEntered);
 
-        RunnerInstance.logout(eventHandler , "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
+        utilityMethods.logout(eventHandler , "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
 
-        RunnerInstance.quit(driver);
+        utilityMethods.quit(driver);
 
     }
 

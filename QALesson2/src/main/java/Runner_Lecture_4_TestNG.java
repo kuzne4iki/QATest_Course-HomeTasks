@@ -48,7 +48,7 @@ public class Runner_Lecture_4_TestNG {
 
     }
 
-
+/*
     @Test(dependsOnMethods = "createProduct")
     public void checkAlert(){
         utilities.checkAlerts(driver);
@@ -59,7 +59,7 @@ public class Runner_Lecture_4_TestNG {
         public void tearDown(){
         utilities.quit(driver);
     }
-
+*/
 
 
 //RunnerInstance.logout(eventHandler , "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");

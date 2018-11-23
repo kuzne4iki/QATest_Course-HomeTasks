@@ -16,7 +16,10 @@ public class CatalogueBase {
         this.utilityMethods = new UtilityMethods();
     }
 
-    public void addNewElement(String xPathAddCategory, String xPathTextField, String nameToEnter, String xPathSave){
+    public void addNewElement(String xPathAddCategory,
+                              String xPathTextField,
+                              String nameToEnter,
+                              String xPathSave){
         WebDriverWait wait = new WebDriverWait(driver, 120);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xPathAddCategory))).click();
         WebElement createNew = driver.findElement(By.xpath(xPathTextField));

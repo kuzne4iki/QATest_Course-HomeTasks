@@ -108,22 +108,26 @@ public class UtilityMethods {
 
     public void checkAlerts(WebDriver driver) {
         try {
-            //Alert alert = driver.switchTo().alert();
-            WebDriverWait wait = new WebDriverWait(driver, 40);
-            Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+           // WebDriverWait wait = new WebDriverWait(driver, 10);
+           // wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
             String alertText = alert.getText();
             System.out.println("Alert data: " + alertText);
             alert.accept();
+
         } catch (NoAlertPresentException e) {
             e.printStackTrace();
         }
 
     }
-    public String generateRandomString(int desiredLength){
+    public String generateRandomString(int maxdDesiredLength){
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
         Random random = new Random();
-        int targetStringLength = random.nextInt(desiredLength);
+
+        int lowerLimit = 3;
+        int targetStringLength = random.nextInt((maxdDesiredLength - lowerLimit) + 1) + lowerLimit;
+
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {
             int randomLimitedInt = leftLimit + (int)
@@ -163,7 +167,7 @@ public class UtilityMethods {
             Actions action = new Actions(driver);
             action.moveToElement(elementToHover);
 
-            WebDriverWait wait = new WebDriverWait(driver, 15);
+            WebDriverWait wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementToClickXPath)));
 
             action.moveToElement(elementToHover);

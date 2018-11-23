@@ -35,8 +35,11 @@ public class CatalogueMerchandise extends CatalogueBase {
         createNewPrice.sendKeys(""+generatedPrice);
         //System.out.println("Price is "+generatedQty);
 
-        driver.findElement(By.xpath(xPathSave)).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xPathSwitch))).click();
+
+
         utilityMethods.checkAlerts(driver);
+        driver.findElement(By.xpath(xPathSave)).click();
+
     }
 }
