@@ -1,6 +1,9 @@
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
 /**
@@ -15,9 +18,9 @@ public class Runner_Lecture_4_TestNG {
     EventCapture eCapture;
 
     @BeforeTest
-    @Parameters({ "browser_name", "value" })
-    public void testPreparation(){
-        driver = DriverManager.chooseDriver("browser_value");
+    @Parameters({ "browser_name"})
+    public void testPreparation(String browser_name){
+        driver = DriverManager.chooseDriver(browser_name);
         utilities = new UtilityMethods();
 
         //eventHandler = new EventFiringWebDriver(driver);
@@ -27,10 +30,24 @@ public class Runner_Lecture_4_TestNG {
 
     }
 
-    @Test
-        public void createProduct(){
+
+    @DataProvider(name = "credentialsDataAdmin")
+    public static Object[][] loginData() {
+        return new Object[][] {
+                {"http://prestashop-automation.qatestlab.com.ua/admin147ajyvk0/",
+                "email",
+                "webinar.test@gmail.com",
+                "passwd",
+                "Xcg7299bnSmMuRLp9ITw",
+                "//button[contains(.,'Вход')]"}};
+    }
+
+    @Test(dataProvider = "credentialsDataAdmin")
+        public void createProduct(String url, String email_field, String email_value,
+                                  String password_field, String password_value, String login_identifier){
         // 1. Войти в Админ Панель
-        utilities.login(driver, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
+        utilities.login(url, driver, email_field, email_value,
+                password_field, password_value, login_identifier);
 
         // 2. Выбрать пункт меню Каталог -> категории и дождаться загрузки страницы управления категориями.
         CataloguePage catalogue = new CataloguePage(driver);
@@ -48,18 +65,49 @@ public class Runner_Lecture_4_TestNG {
 
     }
 
-/*
+    @DataProvider(name = "credentialsDataGUI")
+    public static Object[][] loginDataGUI() {
+        return new Object[][] {
+                {"http://prestashop-automation.qatestlab.com.ua",
+                        "email",
+                        "webinar.test@gmail.com",
+                        "passwd",
+                        "Xcg7299bnSmMuRLp9ITw",
+                        "//button[contains(.,'Вход')]"}};
+    }
+
     @Test(dependsOnMethods = "createProduct")
-    public void checkAlert(){
+    public void checkSavingAlert(){
         utilities.checkAlerts(driver);
 
     }
+
+    /*
+    @Test(dataProvider = "credentialsDataGUI", dependsOnMethods = {"createProduct", "checkSavingAlert"} )
+    public void checkCorrectCreation(String url, String email_field, String email_value,
+                                  String password_field, String password_value, String login_identifier){
+        utilities.login(url, driver, email_field, email_value,
+                password_field, password_value, login_identifier);
+
+    }
+*/
+
+
+    @Parameters({ "urlGUI"})
+    @Test(dependsOnMethods = {"createProduct", "checkSavingAlert"} )
+    public void checkCorrectCreation(String urlGUI){
+    driver.get(urlGUI);
+        WebDriverWait wait = new WebDriverWait(driver, 40);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(.,'Все товары\uE315')]"))).click();
+
+    }
+
 
     @AfterClass
         public void tearDown(){
         utilities.quit(driver);
     }
-*/
+
 
 
 //RunnerInstance.logout(eventHandler , "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");

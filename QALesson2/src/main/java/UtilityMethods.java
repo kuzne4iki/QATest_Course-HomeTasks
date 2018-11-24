@@ -26,22 +26,20 @@ public class UtilityMethods {
         }
     }
 
-    public void login(WebDriver driver, String email_field, String email_value,
+    public void login(String url, WebDriver driver, String email_field, String email_value,
                       String password_field, String password_value, String login_identifier) {
-        driver.get("http://prestashop-automation.qatestlab.com.ua/admin147ajyvk0/");
+        driver.get(url);
         UtilityMethods.sleep(3000);
         driver.manage().window().maximize();
         driver.findElement(By.id(email_field)).sendKeys(email_value);
         driver.findElement(By.id(password_field)).sendKeys(password_value);
         driver.findElement(By.xpath(login_identifier)).click();
-        UtilityMethods.sleep(3000);
+        //UtilityMethods.sleep(3000);
     }
 
     public void logout(WebDriver driver, String logout_main_identifier, String logout_sub_identifier){
         WebDriverWait wait = new WebDriverWait(driver, 40);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(logout_main_identifier))).click();
-        //driver.findElement(By.xpath(logout_main_identifier)).click();
-        //driver.findElement(By.xpath(logout_sub_identifier)).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(logout_sub_identifier))).click();
     }
 
@@ -108,8 +106,6 @@ public class UtilityMethods {
 
     public void checkAlerts(WebDriver driver) {
         try {
-           // WebDriverWait wait = new WebDriverWait(driver, 10);
-           // wait.until(ExpectedConditions.alertIsPresent());
             Alert alert = driver.switchTo().alert();
             String alertText = alert.getText();
             System.out.println("Alert data: " + alertText);

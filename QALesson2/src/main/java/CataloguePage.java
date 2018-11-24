@@ -24,19 +24,9 @@ public class CataloguePage extends CatalogueBase {
 
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xPathSubMenu)));
         WebElement elementToClick = driver.findElement(By.xpath(xPathSubMenu));
-        UtilityMethods.hoverAndClick(driver, elementToHover, elementToClick, xPathSubMenu);//"//a[contains(.,'категории')]");
+        UtilityMethods.hoverAndClick(driver, elementToHover, elementToClick, xPathSubMenu);
     }
 
-    /*public void addCategorie(String xPathAddCategory, String nameToEnter){
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xPathAddCategory))).click();
-        WebElement createNew = driver.findElement(By.xpath("//input[@id='name_1']"));
-        createNew.sendKeys(nameToEnter);
-        driver.findElement(By.xpath("//button[contains(.,'Сохранить')]")).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='alert alert-success'][contains(.,'×\n" +
-                "\t\t\tСоздано')]")));
-
-    }
-    */
 
     //TODO
     public void sortAndVerifyPresence(String nameEntered){

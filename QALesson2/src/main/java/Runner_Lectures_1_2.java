@@ -23,14 +23,14 @@ public class Runner_Lectures_1_2 {
 
        // Script 1 (Lesson 2)
         System.out.println("First script");
-        RunnerInstance.login(driver, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
+        RunnerInstance.login("http://prestashop-automation.qatestlab.com.ua/admin147ajyvk0/", driver, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
         RunnerInstance.logout(driver, "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
 
 
         // Script 2 (Lesson 2)
         System.out.println("*************");
         System.out.println("Second script");
-        RunnerInstance.login(driver, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
+        RunnerInstance.login("http://prestashop-automation.qatestlab.com.ua/admin147ajyvk0/", driver, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
         RunnerInstance.subMenus(driver);
         RunnerInstance.logout(driver, "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
 

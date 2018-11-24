@@ -22,7 +22,7 @@ public class Runner_Lecture_3 {
         utilityMethods.printScriptNumber("Third script");
 
         // 1. Войти в Админ Панель
-        utilityMethods.login(eventHandler, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
+        utilityMethods.login("http://prestashop-automation.qatestlab.com.ua/admin147ajyvk0/", eventHandler, "email", "webinar.test@gmail.com","passwd", "Xcg7299bnSmMuRLp9ITw", "//button[contains(.,'Вход')]" );
 
         // 2. Выбрать пункт меню Каталог -> категории и дождаться загрузки страницы управления категориями.
         CataloguePage catalogue = new CataloguePage(eventHandler);
