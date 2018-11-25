@@ -13,7 +13,7 @@ import org.testng.annotations.*;
  */
 
 
-public class Runner_Lecture_4_TestNG {
+public class Runner_Lecture_4_TestNG extends EventCapture{
     WebDriver driver;
     UtilityMethods utilities;
     EventFiringWebDriver eventHandler;
@@ -27,9 +27,9 @@ public class Runner_Lecture_4_TestNG {
         driver = DriverManager.chooseDriver(browser_name);
         utilities = new UtilityMethods();
 
-        //eventHandler = new EventFiringWebDriver(driver);
-        //eCapture = new EventCapture();
-       // eventHandler.register(eCapture);
+        eventHandler = new EventFiringWebDriver(driver);
+        eCapture = new EventCapture();
+       eventHandler.register(eCapture);
         utilities.printScriptNumber("Forth script");
 
     }
@@ -50,13 +50,13 @@ public class Runner_Lecture_4_TestNG {
         public void createProduct(String url, String email_field, String email_value,
                                   String password_field, String password_value, String login_identifier){
         // 1. Войти в Админ Панель
-        utilities.login(url, driver, email_field, email_value,
+        utilities.login(url, eventHandler, email_field, email_value,
                 password_field, password_value, login_identifier);
 
         // 2. Выбрать пункт меню Каталог -> категории и дождаться загрузки страницы управления категориями.
-        CataloguePage catalogue = new CataloguePage(driver);
+        CataloguePage catalogue = new CataloguePage(eventHandler);
         catalogue.choose_submenu("//span[contains(.,'Каталог')]","(//a[contains(.,'товары')])[1]");
-        items = new CatalogueMerchandise(driver);
+        items = new CatalogueMerchandise(eventHandler);
         merchandiseNameEntered = utilities.generateRandomString(20);
         System.out.println("Random name entered is "+ merchandiseNameEntered);
 
@@ -83,7 +83,7 @@ public class Runner_Lecture_4_TestNG {
 
     @Test(dependsOnMethods = "createProduct")
     public void checkSavingAlert(){
-        utilities.checkAlerts(driver);
+        utilities.checkAlerts(eventHandler);
 
     }
 
@@ -91,11 +91,11 @@ public class Runner_Lecture_4_TestNG {
     @Parameters({ "urlGUI"})
     @Test(dependsOnMethods = {"createProduct", "checkSavingAlert"} )
     public void checkCorrectCreation(String urlGUI){
-    driver.get(urlGUI);
-        WebDriverWait wait = new WebDriverWait(driver, 40);
+        eventHandler.get(urlGUI);
+        WebDriverWait wait = new WebDriverWait(eventHandler, 40);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(.,'Все товары\uE315')]"))).click();
 
-        WebElement merchandiseCreated = driver.findElement(By.xpath("//a[contains(.,merchandiseNameEntered)]"));
+        WebElement merchandiseCreated = eventHandler.findElement(By.xpath("//a[contains(.,merchandiseNameEntered)]"));
 
         // VERIFICATIONS
         Assert.assertTrue(merchandiseCreated.isDisplayed());
@@ -108,9 +108,9 @@ public class Runner_Lecture_4_TestNG {
         System.out.println("Random price entered is "+ qtyEntered);
 
         // Here we enter the value of price and qty in the xpath parameters to determine the elements presence
-        WebElement priceCreated = driver.findElement(By.xpath("//span[contains(@content, priceEntered )]"));
+        WebElement priceCreated = eventHandler.findElement(By.xpath("//span[contains(@content, priceEntered )]"));
         System.out.println("Random price entered is verified");
-        WebElement qtyCreated = driver.findElement(By.xpath("//span[contains(., qtyEntered)]"));
+        WebElement qtyCreated = eventHandler.findElement(By.xpath("//span[contains(., qtyEntered)]"));
         System.out.println("Random qty entered is verified");
 
     }

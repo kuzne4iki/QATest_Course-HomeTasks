@@ -15,92 +15,91 @@ public class EventCapture implements WebDriverEventListener {
 
     @Override
     public void beforeAlertAccept(WebDriver webDriver) {
-        System.out.println("Logging event : beforeAlertAccept");
+
     }
 
     @Override
     public void afterAlertAccept(WebDriver webDriver) {
-        System.out.println("Logging event : afterAlertAccept");
+        System.out.println("Logging event : alert accepted");
     }
 
     @Override
     public void afterAlertDismiss(WebDriver webDriver) {
-        System.out.println("Logging event : afterAlertDismiss");
+        System.out.println("Logging event : alert dismissed");
     }
 
     @Override
     public void beforeAlertDismiss(WebDriver webDriver) {
-        System.out.println("Logging event : beforeAlertDismiss");
+
     }
 
     @Override
     public void beforeNavigateTo(String s, WebDriver webDriver) {
-        System.out.println("Logging event : beforeNavigateTo");
     }
 
     @Override
     public void afterNavigateTo(String s, WebDriver webDriver) {
-        System.out.println("Logging event : afterNavigateTo");
+        System.out.println("Logging event : navigated to the indicated url");
     }
 
     @Override
     public void beforeNavigateBack(WebDriver webDriver) {
-        System.out.println("Logging event : beforeNavigateBack");
+
     }
 
     @Override
     public void afterNavigateBack(WebDriver webDriver) {
-        System.out.println("Logging event : afterNavigateBack");
+        System.out.println("Logging event : navigated back");
     }
 
     @Override
     public void beforeNavigateForward(WebDriver webDriver) {
-        System.out.println("Logging event : beforeNavigateForward");
+
     }
 
     @Override
     public void afterNavigateForward(WebDriver webDriver) {
-        System.out.println("Logging event : afterNavigateForward");
+        System.out.println("Logging event : navigated forward");
     }
 
     @Override
     public void beforeNavigateRefresh(WebDriver webDriver) {
-        System.out.println("Logging event : beforeNavigateRefresh");
+
     }
 
     @Override
     public void afterNavigateRefresh(WebDriver webDriver) {
-        System.out.println("Logging event : afterNavigateRefresh");
+        System.out.println("Logging event : navigated to refresh the page");
     }
 
     @Override
     public void beforeFindBy(By by, WebElement webElement, WebDriver webDriver) {
-        System.out.println("Logging event : beforeFindBy");
+
     }
 
     @Override
     public void afterFindBy(By by, WebElement webElement, WebDriver webDriver) {
-        System.out.println("Logging event : afterFindBy");
+        System.out.println("Logging event : element found " + by.toString());
     }
 
     @Override
     public void beforeClickOn(WebElement webElement, WebDriver webDriver) {
-        System.out.println("Logging event : beforeClickOn");
+
     }
 
     @Override
     public void afterClickOn(WebElement webElement, WebDriver webDriver) {
-        System.out.println("Logging event : afterClickOn");
+        System.out.println("Logging event : element clicked");
     }
 
     @Override
     public void beforeChangeValueOf(WebElement webElement, WebDriver webDriver, CharSequence[] charSequences) {
-        System.out.println("Logging event : beforeChangeValueOf");
+
     }
 
     @Override
     public void afterChangeValueOf(WebElement webElement, WebDriver webDriver, CharSequence[] charSequences) {
-        System.out.println("Logging event : afterChangeValueOf");
+        System.out.println("Logging event : value of element was changed");
     }
 
     @Override
@@ -125,7 +124,7 @@ public class EventCapture implements WebDriverEventListener {
 
     @Override
     public void onException(Throwable throwable, WebDriver webDriver) {
-        System.out.println("Logging event : onException");
+        System.out.println("Logging event : Exception occured");
     }
 
     @Override
