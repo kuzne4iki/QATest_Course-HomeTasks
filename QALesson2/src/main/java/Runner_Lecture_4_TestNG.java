@@ -58,6 +58,8 @@ public class Runner_Lecture_4_TestNG {
         catalogue.choose_submenu("//span[contains(.,'Каталог')]","(//a[contains(.,'товары')])[1]");
         items = new CatalogueMerchandise(driver);
         merchandiseNameEntered = utilities.generateRandomString(20);
+        System.out.println("Random name entered is "+ merchandiseNameEntered);
+
         items.addNewElement("//span[contains(.,'Новый товар')]",
                 "//input[@id='form_step1_name_1']",
                 "//input[@id='form_step1_qty_0_shortcut']",
@@ -94,31 +96,29 @@ public class Runner_Lecture_4_TestNG {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(.,'Все товары\uE315')]"))).click();
 
         WebElement merchandiseCreated = driver.findElement(By.xpath("//a[contains(.,merchandiseNameEntered)]"));
+
+        // VERIFICATIONS
         Assert.assertTrue(merchandiseCreated.isDisplayed());
+        System.out.println("Random name entered is verified");
         merchandiseCreated.click();
 
-        WebElement priceCreated = driver.findElement(By.xpath("//span[contains(@content, items.getGeneratedPrice() )]"));
-        WebElement qtyCreated = driver.findElement(By.xpath("//span[contains(., items.getGeneratedQty() )]"));
-        //double priceEntered = items.getGeneratedPrice();
-        //int qtyEntered = items.getGeneratedQty();
+        double priceEntered = items.getGeneratedPrice();
+        int qtyEntered = items.getGeneratedQty();
+        System.out.println("Random price entered is "+ priceEntered);
+        System.out.println("Random price entered is "+ qtyEntered);
 
-        System.out.print(priceCreated.getText());
-        System.out.print(qtyCreated.getText());
-
-        //Assert.assertEquals(prices);
-        //Assert.assertEquals(qtties)
+        // Here we enter the value of price and qty in the xpath parameters to determine the elements presence
+        WebElement priceCreated = driver.findElement(By.xpath("//span[contains(@content, priceEntered )]"));
+        System.out.println("Random price entered is verified");
+        WebElement qtyCreated = driver.findElement(By.xpath("//span[contains(., qtyEntered)]"));
+        System.out.println("Random qty entered is verified");
 
     }
 
-/*
     @AfterClass
         public void tearDown(){
         utilities.quit(driver);
     }
-
-*/
-
-//RunnerInstance.logout(eventHandler , "(//img[@src='http://profile.prestashop.com/webinar.test%40gmail.com.jpg'])[1]", "//a[contains(.,'Выход')]");
 
 
 }
