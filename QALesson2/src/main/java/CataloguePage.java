@@ -22,7 +22,7 @@ public class CataloguePage extends CatalogueBase {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xPathMainManu)));
         WebElement elementToHover = driver.findElement(By.xpath(xPathMainManu));
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xPathSubMenu)));
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xPathSubMenu)));
         WebElement elementToClick = driver.findElement(By.xpath(xPathSubMenu));
         UtilityMethods.hoverAndClick(driver, elementToHover, elementToClick, xPathSubMenu);
     }

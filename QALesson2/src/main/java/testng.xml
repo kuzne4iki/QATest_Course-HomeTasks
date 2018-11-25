@@ -2,7 +2,7 @@
 
 <suite name="Suite1" verbose="3" >
     <test name="Home Task - Script with testing framework TestNG" >
-        <parameter name = "browser_name" value = "firefox"/>
+        <parameter name = "browser_name" value = "chrome"/>
         <parameter name = "urlGUI" value = "http://prestashop-automation.qatestlab.com.ua"/>
         <classes>
             <class name="Runner_Lecture_4_TestNG" />

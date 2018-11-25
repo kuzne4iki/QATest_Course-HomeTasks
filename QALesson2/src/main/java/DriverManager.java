@@ -26,6 +26,7 @@ public class DriverManager {
                 firefoxOptions.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
                 driver = new FirefoxDriver(firefoxOptions);
                 return driver;
+                //return new FirefoxDriver();
             case "chrome":
                 System.setProperty("webdriver.chrome.driver", new File(DriverManager.class.getResource("chromedriver").getFile()).getPath());
                 return new ChromeDriver();

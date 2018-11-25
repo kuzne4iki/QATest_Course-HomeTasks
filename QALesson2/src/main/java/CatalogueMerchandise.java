@@ -14,6 +14,9 @@ public class CatalogueMerchandise extends CatalogueBase {
         super(driver);
     }
 
+    private int generatedQty;
+    private double generatedPrice;
+
     //Overload the method of the base class by adding extra fields to fill in
     public void addNewElement(String xPathAddCategory, String xPathTextField, String xPathQtyField,
                               String xPathPriceField, String nameToEnter,
@@ -25,13 +28,13 @@ public class CatalogueMerchandise extends CatalogueBase {
 
         WebElement createNewQty = driver.findElement(By.xpath(xPathQtyField));
         createNewQty.clear();
-        int generatedQty = utilityMethods.generateRandomInt(1,100); // values hardcoded as numbers are known
+        generatedQty = utilityMethods.generateRandomInt(1,100); // values hardcoded as numbers are known
         createNewQty.sendKeys(""+generatedQty);
         //System.out.println("Qty is "+generatedQty);
 
         WebElement createNewPrice = driver.findElement(By.xpath(xPathPriceField));
         createNewPrice.clear();
-        double generatedPrice = utilityMethods.generateRandomDouble(0.1,100);
+        generatedPrice = utilityMethods.generateRandomDouble(0.1,100);
         createNewPrice.sendKeys(""+generatedPrice);
         //System.out.println("Price is "+generatedQty);
 
@@ -42,4 +45,14 @@ public class CatalogueMerchandise extends CatalogueBase {
         driver.findElement(By.xpath(xPathSave)).click();
 
     }
+
+    public int getGeneratedQty(){
+        return generatedQty;
+    }
+
+    public double getGeneratedPrice(){
+        return generatedPrice;
+    }
+
+
 }

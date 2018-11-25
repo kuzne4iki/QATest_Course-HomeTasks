@@ -30,7 +30,7 @@ public class UtilityMethods {
                       String password_field, String password_value, String login_identifier) {
         driver.get(url);
         UtilityMethods.sleep(3000);
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
         driver.findElement(By.id(email_field)).sendKeys(email_value);
         driver.findElement(By.id(password_field)).sendKeys(password_value);
         driver.findElement(By.xpath(login_identifier)).click();
@@ -160,14 +160,18 @@ public class UtilityMethods {
 
 
     public static void hoverAndClick(WebDriver driver, WebElement elementToHover,WebElement elementToClick, String elementToClickXPath)  {
-            Actions action = new Actions(driver);
-            action.moveToElement(elementToHover);
+        Actions action = new Actions(driver);
+        action.moveToElement(elementToHover).build().perform();
 
-            WebDriverWait wait = new WebDriverWait(driver, 30);
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementToClickXPath)));
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementToClickXPath)));
+        WebElement elementToClick1 = driver.findElement(By.xpath(elementToClickXPath));
 
-            action.moveToElement(elementToHover);
-            action.click(elementToClick).build().perform();
+        //WebDriverWait wait = new WebDriverWait(driver, 30);
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementToClickXPath)));
+
+        //action.moveToElement(elementToHover).click(elementToClick).build().perform();
+        elementToClick1.click();
 
     }
 
