@@ -1,14 +1,4 @@
-import com.sun.tools.javac.comp.Todo;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import sun.jvm.hotspot.utilities.Assert;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by kuzne4iki on 11/4/18.

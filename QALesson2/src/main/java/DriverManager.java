@@ -16,7 +16,7 @@ public class DriverManager {
     public static WebDriver chooseDriver(String driverName) {
         switch (driverName) {
             case "firefox":
-                System.setProperty("webdriver.chrome.driver", new File(DriverManager.class.getResource("geckodriver").getFile()).getPath());
+                System.setProperty("webdriver.chrome.driver", new File(DriverManager.class.getResource("src/test/resources/geckodriver").getFile()).getPath());
                 //There are 3 states for UnexpectedAlertBehaviour:
                 //ACCEPT - Accepts the alert
                 //DISMISS - Closes/Cancels the alert
@@ -28,11 +28,11 @@ public class DriverManager {
                 return driver;
                 //return new FirefoxDriver();
             case "chrome":
-                System.setProperty("webdriver.chrome.driver", new File(DriverManager.class.getResource("chromedriver").getFile()).getPath());
+                //System.setProperty("webdriver.chrome.driver", new File(DriverManager.class.getResource("/src/test/resources/chromedriver").getFile()).getPath());
                 return new ChromeDriver();
 
             default:
-                System.setProperty("webdriver.chrome.driver", new File(DriverManager.class.getResource("geckodriver").getFile()).getPath());
+                System.setProperty("webdriver.chrome.driver", new File(DriverManager.class.getResource("src/test/resources/geckodriver").getFile()).getPath());
                 return new FirefoxDriver();
 
         }
