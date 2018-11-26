@@ -70,16 +70,6 @@ public class Runner_Lecture_4Test extends EventCapture{
 
     }
 
-    @DataProvider(name = "credentialsDataGUI")
-    public static Object[][] loginDataGUI() {
-        return new Object[][] {
-                {"http://prestashop-automation.qatestlab.com.ua",
-                        "email",
-                        "webinar.test@gmail.com",
-                        "passwd",
-                        "Xcg7299bnSmMuRLp9ITw",
-                        "//button[contains(.,'Вход')]"}};
-    }
 
     @Test(dependsOnMethods = "createProduct")
     public void checkSavingAlert(){
